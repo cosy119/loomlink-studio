@@ -1,0 +1,4 @@
+export function parseCount(v:string){const s=(v||"").toLowerCase().replace(/,/g,"").trim();const n=parseFloat(s)||0;return s.includes("k")?Math.round(n*1000):s.includes("m")?Math.round(n*1000000):Math.round(n)}
+export function parseAgeMonths(v:string){const s=(v||"").toLowerCase();const n=parseFloat(s)||0;return s.includes("month")?Math.round(n):s.includes("year")?Math.round(n*12):0}
+export function normalizeListingUrl(v:string){const m=(v||"").match(/etsy\.com\/listing\/(\d+)/);return m?`https://www.etsy.com/listing/${m[1]}/`:v.trim()}
+export function cleanLandropRows(rows:Record<string,string>[]){const seen=new Set<string>();return rows.map(r=>({...r,listing_url:normalizeListingUrl(r.listing_url),sales_value:parseCount(r.sales),shop_age_months:parseAgeMonths(r.shop_age)})).filter(r=>{const k=r.listing_id||r.listing_url;if(!k||seen.has(k))return false;seen.add(k);return true})}
