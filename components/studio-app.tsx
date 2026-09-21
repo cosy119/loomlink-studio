@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { AppWindow, Boxes, ChevronRight, CircleUserRound, Database, Download, ImagePlus, Layers3, Library, Menu, Plus, Search, Settings2, ShieldCheck, Sparkles, Star, Upload, WandSparkles, X } from "lucide-react";
@@ -11,6 +10,10 @@ import { Progress } from "@/components/ui/progress";
 import { Textarea } from "@/components/ui/textarea";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
+
+function Link({href,className,children,...props}:{href:string;className?:string;children:React.ReactNode;[key:string]:unknown}){
+  return <a href={href} className={className} {...props}>{children}</a>;
+}
 
 export type StudioView="workspace"|"skill-editor"|"skill-market"|"model-market"|"datasets"|"project"|"profile"|"models"|"skill-detail";
 const baseSteps=["SKU 原图保真修复","更换卧室场景背景","视觉分析与属性提取","标题、描述与标签","定价建议","生成 Etsy 上架包"];
