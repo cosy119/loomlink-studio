@@ -18,5 +18,6 @@ test('cloud skill, project and R2 asset lifecycle',async()=>{
  const detail=await request(`/api/projects/${project.id}`);assert.equal(detail.assets.length,1);assert(detail.runs.some(x=>x.id===run.id));
  const noModel=await fetch(root+`/api/runs/${run.id}/advance`,{method:'POST',headers:{...auth,'content-type':'application/json','connection':'close'},body:'{}'});assert.equal(noModel.status,409);assert.match((await noModel.json()).error,/模型设置/);
  const cancelled=await request(`/api/runs/${run.id}/cancel`,{method:'POST',headers:{'content-type':'application/json'},body:'{}'});assert.equal(cancelled.status,'cancelled');
+ let missingProvider;for(let attempt=0;attempt<2;attempt++){missingProvider=await fetch(root+'/api/models',{method:'POST',headers:{...auth,'content-type':'application/json'},body:JSON.stringify({protocol:'openai',baseUrl:'https://api.example.com/v1',modelId:'example',apiKey:'example-key'})});if(missingProvider.status!==503)break;await missingProvider.text();await new Promise(resolve=>setTimeout(resolve,150))}assert.equal(missingProvider.status,400);assert.match((await missingProvider.json()).error,/供应商名称/);
  await request(`/api/assets/${asset.id}`,{method:'DELETE'});const afterDelete=await request(`/api/projects/${project.id}`);assert.equal(afterDelete.assets.length,0);
 });
