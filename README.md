@@ -1,4 +1,10 @@
-# vinext-starter
+# 织链 LoomLink
+
+面向 Etsy 床品卖家的 AI 商品 Skill 工作台，支持 SKU 图片处理、图生文、商品详情与标签生成、定价建议和 Etsy 上架包导出。
+
+**在线访问：** [https://loomlink-etsy-studio.customportrait.chatgpt.site](https://loomlink-etsy-studio.customportrait.chatgpt.site)
+
+## 技术说明
 
 A clean full-stack starter running on [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and Drizzle support.
 
